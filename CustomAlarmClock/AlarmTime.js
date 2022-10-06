@@ -23,7 +23,7 @@ const styles = StyleSheet.create({
 });
 
 const AlarmTime = () => {
-  const start = useSharedValue(1);
+  const start = useSharedValue(0);
   const end = useSharedValue(1.2 * Math.PI);
   return (
     <View style={styles.container}>

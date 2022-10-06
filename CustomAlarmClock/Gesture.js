@@ -35,29 +35,29 @@ const Region = {
 
 const Gesture = ({start, end, startPos, endPos}) => {
   const onGestureEvent = useAnimatedGestureHandler({
-    onStart: ({x, y}, ctx) => {
+    onStart: ({x, y}, context) => {
       if (checkRegion({x, y}, startPos.value, STROKE)) {
-        ctx.region = Region.START;
-        ctx.offset = start.value;
+        context.region = Region.START;
+        context.offset = start.value;
       } else if (checkRegion({x, y}, endPos.value, STROKE)) {
-        ctx.region = Region.END;
-        ctx.offset = end.value;
+        context.region = Region.END;
+        context.offset = end.value;
       } else {
-        ctx.region = Region.MAIN;
+        context.region = Region.MAIN;
         const {theta} = canvas2Polar({x, y}, CENTER);
-        ctx.offset = theta;
+        context.offset = theta;
       }
     },
-    onActive: ({x, y}, ctx) => {
+    onActive: ({x, y}, context) => {
       const {theta} = canvas2Polar({x, y}, CENTER);
-      const delta = theta - ctx.offset;
-      if (ctx.region === Region.START || ctx.region === Region.MAIN) {
+      const delta = theta - context.offset;
+      if (context.region === Region.START || context.region === Region.MAIN) {
         start.value = formating(start.value + delta);
       }
-      if (ctx.region === Region.END || ctx.region === Region.MAIN) {
+      if (context.region === Region.END || context.region === Region.MAIN) {
         end.value = formating(end.value + delta);
       }
-      ctx.offset = theta;
+      context.offset = theta;
     },
   });
   return (
