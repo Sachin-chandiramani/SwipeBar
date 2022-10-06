@@ -20,8 +20,12 @@ import {
 } from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import TabBar from './CustomTopTabBar';
+import TicTacToe from './TicTacToe';
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
-
+import DragDrop from './DragDrop';
+import DonutChart from './DonutChart';
+import ClockAnim from './ClockAnim';
+import CustomAlarmClock from './CustomAlarmClock';
 const Tab = createMaterialTopTabNavigator();
 
 const dogImagesContainer = dogImages => (
@@ -78,15 +82,63 @@ function MyTabs() {
 }
 
 const App = () => {
-  return (
-    <NavigationContainer>
-      <View style={{height: 50, backgroundColor: 'gray'}} />
+  const drag = (x, y) => {
+    console.log('Draging', x, y);
+  };
+  const drop = (x, y) => {
+    console.log('Sropping', x, y);
+  };
+  const renderDragDrop = () => (
+    <SafeAreaView style={styles.screen}>
+      <DragDrop>
+        <View style={styles.ball} />
+      </DragDrop>
 
-      <MyTabs />
-    </NavigationContainer>
+      <View style={styles.pit}>
+        <Text style={styles.text}>PIT</Text>
+      </View>
+    </SafeAreaView>
+  );
+  return (
+    // <NavigationContainer>
+    //   <View style={{height: 50, backgroundColor: 'gray'}} />
+
+    //   <MyTabs />
+    // </NavigationContainer>
+    // <SafeAreaView style={{flex: 1}}>
+    //   <DonutChart />
+    // </SafeAreaView>
+    // <ClockAnim />
+    <CustomAlarmClock />
   );
 };
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  screen: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  ball: {
+    width: 50,
+    height: 50,
+    borderRadius: 25,
+    backgroundColor: 'blue',
+  },
+  pit: {
+    zIndex: 1,
+    position: 'absolute',
+    bottom: 0,
+    width: '100%',
+    height: 100,
+    backgroundColor: 'black',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  text: {
+    fontSize: 18,
+    color: 'white',
+  },
+});
 
 export default App;
